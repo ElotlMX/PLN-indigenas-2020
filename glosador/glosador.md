@@ -21,7 +21,7 @@ Natural (PLN)
 
 . . .
 
-* El glosado de textos es de suma importancia para el análisis y la
+* Este etiquetado de textos es de suma importancia para el análisis y la
   documentación lingüística
 
 . . .
@@ -39,27 +39,24 @@ Natural (PLN)
 # El lenguaje natural
  
 * No obstante, el lenguaje natural es **complejo**
-  * Presenta fenómenos que hacen de la construcción de etiquetadores
-    automáticos una tarea difícil
 
 . . . 
 
 * Adicionalmente, existen escenarios donde los métodos tradicionales no son
   efectivos como es el caso de los **bajos recursos digitales**
 
+
 # El reto: Bajos recursos digitales
 
+![México](img/mexico.png "opt title"){width=50%}
+
+. . .
+
 * Los bajos recursos digitales son un escenario común en las lenguas mexicanas
-  * A pesar de la gran diversidad lingüística, gran parte de las lenguas
-    originarias no poseen contenido web ni publicaciones digitales
-  * Esto propicia que carezcan de tecnologías del lenguaje
 
 . . .
 
 * Este entorno de experimentación supone importante **reto de invetigación** 
-  * Los métodos tradicionales de etiquetado automático requieren grandes
-    cantidades de datos para funcionar correctamente
-  * La escasez de los corpus y falta de normalización puede complicar la tarea
 
 # Objetivo
 
@@ -67,18 +64,18 @@ Natural (PLN)
 
 . . .
 
-* Nos enfocamos en la construcción de un **glosador automático para el otomí de
-Toluca**
+* Nos enfocamos en la construcción de un **glosador para el
+  otomí de Toluca**
 
 . . .
 
-* Bucamos diseñar e implementar un etiquetador morfológico para el otomí de
-Toluca basado en métodos de aprendizaje estructurado débilmente supervisado.
+* Diseño e implementación de un **etiquetador morfológico** basado en métodos de
+  aprendizaje estructurado débilmente supervisado.
 
 . . .
 
 * Específicamente, *Conditional Random Fields (CRFs)* (Lafferty et al., 2001)
-para el etiquetado morfológico
+
 
 # Corpus 
 
@@ -106,8 +103,14 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
 
 ## Datos cualitativos del corpus
 
-* La variante en particular es de la región de San Andrés Cuexcontitlan
-* Incluye información morfosintáctica (etiquetas POS) y glosa.
+* La variante con la que trabajamos es de la región de San Andrés Cuexcontitlan
+
+. . .
+
+* Se incluyó información morfosintáctica (*Part Of Speech, POS*) y glosa
+
+. . .
+
 * Se agregaron 81 casos con fenómenos poco frecuentes y, por tanto,
   particularmente difíciles de predecir.
  
@@ -173,6 +176,7 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
   'bias',
   'letterLowercase=ó',
   'EOS',
+  'prevpostag=neg',
   'letterposition=-5',
   'prevletter=t>',
   'nxtletter=<t',
@@ -181,15 +185,14 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
   'nxt4letters=<tsog'
 ]
 ```
-
-Se obtuvieron *feature functions* por cada letra. Estas son las
-correspondientes a la letra `ó`
+* *feature functions* de la letra **`ó`**
 
 # Evaluación
 
 Se propusieron tres entornos de evaluación:
 
-1. **Baseline**: Las *feature functions* fueron reducidas al mínimo
+1. **Baseline**: Las *feature functions* fueron reducidas al mínimo con lo que
+   se **simuló** un *HMM*
 2. **POSLess**: Las *feature functions* fueron construidas ignorando la
    información de las etiquetas POS
 3. **LinearCRF**: Toda la información lingüística del etiquetado manual es
@@ -200,10 +203,52 @@ con $K=10$ para cada modelo generado.
 
 # Resultados
 
-Reportamos el *accuracy* promedio de cada modelo generado
+Reportamos el *accuracy* promedio por cada modelo generado en los diferentes entornos de experimentación
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{| c | c |}\hline
+        \textbf{Modelo} & \textbf{Accuracy} \\\hline
+        \textbf{\textsf{linearCRF\_l2\_zero}} & \textbf{0.9516}\\ 
+        \textsf{POS\_Less} & 0.9499\\ 
+        \textsf{baseline\_HMMLike\_zero} & 0.8762\\ \hline
+    \end{tabular}
+    \caption{Comparación de modelos de diferentes entornos con mejor \textit{accuracy}}
+    \label{tab:models-comparation}
+\end{table}
+
+## Función de perdida
+
+![Función de perdida de los modelos con mejor desempeño](img/loss_models.png "opt title")
+
+## Ejemplos
+
+![Modelo linearCRF_l2_zero](img/ejemplo_linearcrf.png "opt title")
+
+---
+
+![Modelo baseline_HMMLike_zero](img/ejemplo_baseline.png "opt title")
 
 # Conclusiones
 
+* La información lingüística codificada en las *feature functions* es muy importante para **mejorar el desempeño** del etiquetador.
+
+. . .
+
+* Notamos que las etiquetas *POS* parecen **no ser restrictivas** lo cual es bueno para lenguas de bajos recursos digitales
+
+. . .
+
+* Cuando quitamos información en la construcción de las *feature functions* la **frecuencia de las instancias** tiene mayor peso
+
+. . .
+
+* Concluimos que para entornos de bajos recursos digitales, donde la frecuencia de las instancias es menor, es necesario **brindar un contexto amplio** y agregar **información lingüística detallada**
+
+
+# Gracias | Jamädi
+
+# ¿Dudas?
 
 ---
 title: "Glosador automático usando aprendizaje estructurado para el otomí de Toluca"
@@ -218,5 +263,4 @@ theme: metropolis
 colortheme: default 
 date: "5 de Noviembre 2020"
 navigation: horizontal
-incremental: true
 ---
