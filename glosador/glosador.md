@@ -18,16 +18,11 @@ Natural (PLN)
 
 * El glosado es un tipo de etiquetado que asigna etiquetas a las unidades que
   conforman una palabra
+
+. . .
+
 * El glosado de textos es de suma importancia para el análisis y la
   documentación lingüística
-
-
-
-# El lenguaje natural
- 
-* No obstante, el lenguaje natural es **complejo**
-  * Presenta fenómenos que hacen de la construcción de etiquetadores
-    automáticos una tarea difícil
 
 . . .
 
@@ -35,16 +30,22 @@ Natural (PLN)
   * Esto es lento y costoso ya que requiere de habilidades de un
     lingüista y un trabajo intimo con hablantes nativos, los cuales, requieren
     capacitación en lingüística básica y de software (Moeller, 2018)
+ 
+. . .
+
+* La construcción de modelos automáticos que asistan este tipo de etiquetado
+  surgen como **una tarea urgente**
+
+# El lenguaje natural
+ 
+* No obstante, el lenguaje natural es **complejo**
+  * Presenta fenómenos que hacen de la construcción de etiquetadores
+    automáticos una tarea difícil
 
 . . . 
 
 * Adicionalmente, existen escenarios donde los métodos tradicionales no son
   efectivos como es el caso de los **bajos recursos digitales**
-  
-. . .
-
-* La construcción de modelos automáticos que asistan este tipo de etiquetado
-  surgen como **una tarea urgente**
 
 # El reto: Bajos recursos digitales
 
