@@ -1,12 +1,14 @@
 # Etiquetadores automáticos
 
-* Los etiquetadores automáticos son una tarea común del Procesamiento de Lenguaje
-Natural (PLN)
+* El etiquetado automático es una tarea que asigna etiquetas a partes de un
+  texto. Estas etiquetas agregan información lingüística a estos elementos
+  * Esta tarea es un paso importante para el descubrimiento de las
+    estructuras lingüísticas de un corpus
 
 . . .
 
-* Es usual que se utilicen métodos de *Machine Learning (ML)* para su
-  construcción
+* Es usual que se utilicen métodos de *Machine Learning (ML)* para la
+  construcción de etiquetadores  automáticos
 
 . . .
 
@@ -16,8 +18,8 @@ Natural (PLN)
 
 ## Glosado
 
-* El glosado es un tipo de etiquetado que asigna etiquetas a las unidades que
-  conforman una palabra
+* El glosado es un tipo de etiquetado que brinda información acerca del
+  significado y propiedades gramaticales de las palabras
 
 . . .
 
@@ -29,12 +31,12 @@ Natural (PLN)
 * Tradicionalmente el glosado se hace manualmente
   * Esto es lento y costoso ya que requiere de habilidades de un
     lingüista y un trabajo intimo con hablantes nativos, los cuales, requieren
-    capacitación en lingüística básica y de software (Moeller, 2018)
+    capacitación en lingüística básica y de software [@moeller2018automatic]
  
 . . .
 
 * La construcción de modelos automáticos que asistan este tipo de etiquetado
-  surgen como **una tarea urgente**
+  surgen como **una tarea importante**
 
 # El lenguaje natural
  
@@ -56,7 +58,7 @@ Natural (PLN)
 
 . . .
 
-* Este entorno de experimentación supone importante **reto de invetigación** 
+* Este entorno de experimentación supone importante **reto de investigación** 
 
 # Objetivo
 
@@ -74,20 +76,19 @@ Natural (PLN)
 
 . . .
 
-* Específicamente, *Conditional Random Fields (CRFs)* (Lafferty et al., 2001)
+* Específicamente, *Conditional Random Fields (CRFs)* [@lafferty2001conditional]
 
 
 # Corpus 
 
 :::::::::::::: {.columns}
 ::: {.column width="60%"}
-* Para este trabajo se utilizó un corpus en otomí basado en el trabajo de
-  Lastra (1992).
+* Para este trabajo se utilizó un corpus en otomí basado en el trabajo de [@lastra1992otomi]
 
 . . . 
 
 * El corpus fue etiquetado y glosado manualmente por el
-  lingüista Víctor Germán Mijangos Cruz.
+  lingüista Víctor Mijangos de la Cruz. 
 
 . . .
 
@@ -99,7 +100,9 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
 :::
 ::::::::::::::
 
+## Convenciones
 
+![Representación de cada vocal en IPA (alfabeto fonético internacional)](img/convencion.png "opt title")
 
 ## Datos cualitativos del corpus
 
@@ -169,9 +172,11 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
 
 ## *Feature Functions*
 
-### "hi tótsogí" (*No lo he dejado*) 
+:::::::::::::: {.columns}
+::: {.column width="65%"}
+"hi t**ó**tsogí" (*No lo he dejado*) 
 
-```
+```python
 [
   'bias',
   'letterLowercase=ó',
@@ -186,6 +191,22 @@ se encuentra en la plataforma web Tsunkua (`https://tsunkua.elotl.mx/`)
 ]
 ```
 * *feature functions* de la letra **`ó`**
+:::
+::: {.column width="50%"}
+
+```python
+[
+  [["hi", "stem"], "neg"], 
+  [
+    ["tó", "1.prf"],  
+    ["tsogí", "stem"],
+    "v"
+  ]
+]
+```
+* Frase glosada en el corpus 
+:::
+:::::::::::::
 
 # Evaluación
 
@@ -243,22 +264,27 @@ Reportamos el *accuracy* promedio por cada modelo generado en los diferentes ent
 
 . . .
 
-* Concluimos que para entornos de bajos recursos digitales, donde la frecuencia de las instancias es menor, es necesario **brindar un contexto amplio** y agregar **información lingüística detallada**
+* Concluimos que para entornos de bajos recursos digitales, donde la frecuencia de las instancias es menor, es necesario **brindar un contexto amplio** y agregar **información lingüística**
 
 
 # Gracias | Jamädi
 
 # ¿Dudas?
 
+## Bibliografia
+
+\bibliographystyle{apacite}
+\bibliography{barriga_tesis}
+
 ---
 title: "Glosador automático usando aprendizaje estructurado para el otomí de Toluca"
 author: 
-- Diego A. Barriga Martínez$^1$\newline
-- Victor Mijangos Crúz$^1$\newline
-- Ximena Gutierrez-Vasques$^2$
+- Diego A. Barriga Martínez$^\blacklozenge$\newline
+- Víctor Mijangos de la Cruz$^\blacklozenge$\newline
+- Ximena Gutierrez-Vasques$^\clubsuit$
 institute: 
-- Universidad Nacional Autónoma de México$^1$
-- Universidad de Zúrich$^2$
+- Universidad Nacional Autónoma de México$^\blacklozenge$
+- Universidad de Zúrich$^\clubsuit$
 theme: metropolis
 colortheme: default 
 date: "5 de Noviembre 2020"
